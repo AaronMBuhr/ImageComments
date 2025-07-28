@@ -18,6 +18,7 @@ A lightweight WPF application for viewing and extracting metadata comments from 
 - 🤖 **AI Parameters** - Special support for AI generation parameters commonly found in PNG files
 - 📋 **Easy Copying** - Copy metadata to clipboard with a single click
 - 🎯 **Simple Interface** - Clean, user-friendly WPF interface
+- 💻 **Console Mode** - Command-line option to print metadata directly to console (perfect for automation)
 - ⚡ **Fast & Lightweight** - No external dependencies, works as a standalone application
 - 🖱️ **Drag & Drop Ready** - Launch with command-line arguments or batch file
 
@@ -45,11 +46,15 @@ dotnet run "path/to/your/image.jpg"
 
 ### Command Line
 ```cmd
-# Using dotnet (from source)
+# Using dotnet (from source) - GUI mode
 dotnet run "path/to/your/image.jpg"
 
-# Using the executable
+# Using the executable - GUI mode
 ImageComments.exe "path/to/your/image.jpg"
+
+# Console mode - prints metadata to console instead of showing GUI
+ImageComments.exe -c "path/to/your/image.jpg"
+ImageComments.exe --console "path/to/your/image.jpg"
 ```
 
 ### File Association (Advanced)
@@ -65,6 +70,7 @@ A `RunWithImage.bat` file is included for development purposes to handle process
 - **Image Forensics** - Examine technical metadata for analysis
 - **Asset Management** - Quick metadata inspection for image libraries
 - **Quality Control** - Verify image properties and embedded information
+- **Automation & Scripting** - Use console mode in batch scripts and command-line workflows
 
 ## 🖼️ Supported Formats
 
