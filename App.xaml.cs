@@ -14,6 +14,20 @@ namespace ImageComments
         {
             string[] args = e.Args;
             
+            // Check for help flags first - exit immediately without any WPF initialization
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "-h" || args[i] == "--help")
+                {
+                    // Allocate console for output
+                    AllocConsole();
+                    ShowHelp();
+                    // Exit immediately without any WPF startup
+                    Environment.Exit(0);
+                    return;
+                }
+            }
+            
             // Check for console mode flag
             bool consoleMode = false;
             string? imagePath = null;
@@ -39,11 +53,11 @@ namespace ImageComments
                 RunConsoleMode(imagePath);
                 
                 // Exit without showing GUI
-                Shutdown(0);
+                Environment.Exit(0);
                 return;
             }
             
-            // Continue with normal WPF startup
+            // Continue with normal WPF startup (GUI mode)
             base.OnStartup(e);
         }
         
@@ -52,7 +66,8 @@ namespace ImageComments
             if (string.IsNullOrEmpty(imagePath))
             {
                 Console.WriteLine("Error: No image file specified.");
-                Console.WriteLine("Usage: ImageComments.exe [-c|--console] <image_file>");
+                Console.WriteLine();
+                Console.WriteLine(GetHelpText());
                 return;
             }
             
@@ -83,6 +98,31 @@ namespace ImageComments
             {
                 Console.WriteLine($"Error processing file: {ex.Message}");
             }
+        }
+        
+        private void ShowHelp()
+        {
+            Console.WriteLine(GetHelpText());
+        }
+        
+        public static string GetHelpText()
+        {
+            return "ImageComments - Extract and view metadata from image files\r\n" +
+                   "\r\n" +
+                   "Usage: ImageComments.exe [options] <image_file>\r\n" +
+                   "\r\n" +
+                   "Options:\r\n" +
+                   "  -c, --console    Run in console mode (display metadata in console)\r\n" +
+                   "  -h, --help       Show this help message\r\n" +
+                   "\r\n" +
+                   "Arguments:\r\n" +
+                   "  <image_file>     Path to the image file to process\r\n" +
+                   "\r\n" +
+                   "Examples:\r\n" +
+                   "  ImageComments.exe photo.jpg              # Open GUI with photo.jpg\r\n" +
+                   "  ImageComments.exe -c photo.jpg           # Display metadata in console\r\n" +
+                   "  ImageComments.exe --console photo.jpg    # Display metadata in console\r\n" +
+                   "  ImageComments.exe -h                     # Show this help message";
         }
         
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

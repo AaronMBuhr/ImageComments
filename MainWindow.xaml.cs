@@ -51,14 +51,14 @@ namespace ImageComments
                 else
                 {
                     FileNameTextBlock.Text = "No file specified";
-                    CommentTextBox.Text = "Please provide an image file as a command line argument.";
+                    CommentTextBox.Text = "Error: No image file specified.\r\n\r\n" + App.GetHelpText();
                     FieldsComboBox.IsEnabled = false;
                 }
             }
             else
             {
                 FileNameTextBlock.Text = "No file specified";
-                CommentTextBox.Text = "Please provide an image file as a command line argument.";
+                CommentTextBox.Text = "Error: No image file specified.\r\n\r\n" + App.GetHelpText();
                 FieldsComboBox.IsEnabled = false;
             }
         }
